@@ -62,7 +62,7 @@ docker run --rm mlops-task
 ```
 
 The container:
-- Bundles `data.csv` and `config.yaml` at build time
+- Copies data.csv and config.yaml into the container image at build time
 - Executes the pipeline with all required flags
 - Prints `metrics.json` to **stdout**
 - Exits **0** on success, **non-zero** on failure
@@ -143,3 +143,28 @@ The pipeline validates:
 - Non-numeric `close` values are dropped with a warning (not a hard failure)
 
 Errors always produce a `metrics.json` with `"status": "error"` and exit code 1.
+
+## Tech Stack
+
+- Python 3.9
+- pandas
+- numpy
+- PyYAML
+- Docker
+- logging
+- argparse
+
+
+## Observability
+
+The pipeline emits structured logs to run.log including:
+- job start/end
+- config validation
+- rows loaded
+- rolling mean computation
+- signal generation
+- metrics summary
+- validation and runtime errors
+
+- Exit code 0 on success
+- Exit code 1 on failure
